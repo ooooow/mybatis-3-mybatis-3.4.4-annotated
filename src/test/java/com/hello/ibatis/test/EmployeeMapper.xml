@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hello.ibatis.test.EmployeeMapper" >
+
+    <resultMap id="BaseResultMap" type="com.hello.ibatis.test.Employee" >
+        <id column="EMPLOYEE_ID" property="employeeId" jdbcType="INTEGER" />
+        <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+        <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="SALARY" property="salary" jdbcType="DECIMAL" />
+    </resultMap>
+
+    <cache eviction="LRU" flushInterval="6000000" size="1024" readOnly="true"></cache>
+
+    <sql id="BASE_COLUMN" >EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, SALARY</sql>
+
+    <parameterMap id="param" type="com.hello.ibatis.test.Employee">
+        <parameter property="firstName" resultMap="BaseResultMap"></parameter>
+    </parameterMap>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer"  >
+        select
+        EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, SALARY
+        from EMPLOYEE
+        where EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL}
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, SALARY
+        from EMPLOYEE
+        where FIRST_NAME = #{firstName}
+    </select>
+
+    <update id="update" flushCache="true">
+        update EMPLOYEE set FIRST_NAME='CCCCCC' where EMPLOYEE_ID=100;
+    </update>
+
+    <insert id="insert" flushCache="true" parameterType="com.hello.ibatis.test.Employee">
+        insert into EMPLOYEE (
+        <include refid="BASE_COLUMN"></include>
+        ) VALUES (#{employeeId},#{firstName},#{lastName},#{email},#{salary})
+    </insert>
+
+    <insert id="insertAutoKey" flushCache="true" parameterType="com.hello.ibatis.test.Employee">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="employeeId">
+            SELECT LAST_INSERT_ID() AS employeeId
+        </selectKey>
+        insert into EMPLOYEE (
+        FIRST_NAME, LAST_NAME, EMAIL, SALARY
+        ) VALUES (#{firstName},#{lastName},#{email},#{salary})
+    </insert>
+
+    <insert id="insertAutoKey2" flushCache="true" parameterType="com.hello.ibatis.test.Employee" useGeneratedKeys="true" keyProperty="employeeId">
+        insert into EMPLOYEE (
+        FIRST_NAME, LAST_NAME, EMAIL, SALARY
+        ) VALUES (#{firstName},#{lastName},#{email},#{salary})
+    </insert>
+
+</mapper>
