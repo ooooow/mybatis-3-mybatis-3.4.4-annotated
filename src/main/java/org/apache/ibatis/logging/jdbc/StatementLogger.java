@@ -26,7 +26,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * Statement proxy to add logging
- * 
+ * Statement 代理增强，打印日志，sql语句
  * @author Clinton Begin
  * @author Eduardo Macarron
  * 

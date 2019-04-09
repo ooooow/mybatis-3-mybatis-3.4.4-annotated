@@ -31,7 +31,7 @@ import org.apache.ibatis.reflection.ArrayUtil;
 
 /**
  * Base class for proxies to do logging
- * 
+ * jdbc 操作的基类 用于打出jdbc日志
  * @author Clinton Begin
  * @author Eduardo Macarron
  */

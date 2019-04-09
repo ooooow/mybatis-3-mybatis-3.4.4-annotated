@@ -27,7 +27,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * Connection proxy to add logging
- * 
+ * 通过代理增强connection 对象，能够输出日志 打印SQL语句
  * @author Clinton Begin
  * @author Eduardo Macarron
  * 

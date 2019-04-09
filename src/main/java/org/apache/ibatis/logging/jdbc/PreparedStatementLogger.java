@@ -27,7 +27,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * PreparedStatement proxy to add logging
- * 
+ * PreparedStatement 代理增强，打印SQL语句 打印参数值
  * @author Clinton Begin
  * @author Eduardo Macarron
  * 
@@ -84,7 +84,7 @@ public final class PreparedStatementLogger extends BaseJdbcLogger implements Inv
 
   /*
    * Creates a logging version of a PreparedStatement
-   *
+   * 创建一个带logging版本的PreparedStatement
    * @param stmt - the statement
    * @param sql  - the sql statement
    * @return - the proxy

@@ -30,7 +30,7 @@ import org.apache.ibatis.reflection.ExceptionUtil;
 
 /**
  * ResultSet proxy to add logging
- * 
+ * ResultSet 代理增强，打印日志 返回列，返回值内容，用于跟踪sql执行情况
  * @author Clinton Begin
  * @author Eduardo Macarron
  * 
